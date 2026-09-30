@@ -1,0 +1,45 @@
+
+/* ---- photo admin (visible only to people who can edit) ---- */
+.photo.has .ph{display:none}
+#lockBtn{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;z-index:45;display:flex;align-items:center;gap:6px;background:rgba(20,17,16,.78);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:8px 14px;font:700 13px "Noto Sans",system-ui,sans-serif;cursor:pointer}
+body.adminmode #lockBtn{background:#2f6b4f}
+#lockToast{position:fixed;left:16px;right:16px;top:calc(60px + env(safe-area-inset-top,0px));z-index:46;max-width:420px;margin-left:auto;background:#231f1c;color:#fff;border-radius:8px;padding:14px 16px;font:500 14px/1.6 "Noto Sans",system-ui,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.35)}
+#lockToast[hidden]{display:none}
+.pctl{display:none;position:absolute;top:10px;left:10px;z-index:5;gap:8px;flex-wrap:wrap}
+body.adminmode .pctl{display:flex}
+.as-btn.sm{padding:8px 14px;font-size:13px;background:rgba(20,17,16,.85);color:#fff}
+.as-btn.pick.sm{background:#2f6b4f}
+body.adminmode .photo[data-slot]:not(.pv){outline:2px dashed #c9a45c;outline-offset:-2px}
+#pwBox{position:fixed;inset:0;z-index:70;background:rgba(20,17,16,.6);display:flex;align-items:center;justify-content:center;padding:16px}
+#pwBox[hidden]{display:none}
+.pw-card{background:#fffdf8;color:#231f1c;border-radius:10px;padding:22px;width:100%;max-width:340px;display:grid;gap:10px;font:500 15px "Noto Sans",system-ui,sans-serif}
+.pw-card strong{font-size:18px}
+.pw-card input{font:500 18px "Noto Sans",system-ui,sans-serif;padding:10px 12px;border:1px solid #b9ad97;border-radius:6px;background:#fff;color:#231f1c;width:100%}
+#adminSheet{position:fixed;inset:0;z-index:60;overflow:auto;background:#fffdf8;color:#231f1c;padding:0 16px calc(32px + env(safe-area-inset-bottom,0px));font-family:"Noto Sans",system-ui,sans-serif;font-size:15px;line-height:1.6}
+#adminSheet[hidden]{display:none}
+.as-head{position:sticky;top:0;background:#fffdf8;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #ddd3c0;z-index:2}
+.as-head strong{font-size:18px}
+.as-btn{background:#231f1c;color:#fff;border:0;border-radius:999px;padding:10px 18px;font:700 14px "Noto Sans",system-ui,sans-serif;cursor:pointer}
+.as-btn.ghost{background:transparent;color:#231f1c;border:1px solid #231f1c}
+.as-btn.pick{background:#2f6b4f;display:inline-block}
+.as-note{color:#6b625a;margin:14px 0}
+.as-row{border:1px solid #ddd3c0;border-radius:8px;padding:14px;margin-bottom:14px;background:#fff;display:grid;gap:12px}
+.as-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.as-top>div{min-width:0}
+.as-top b{display:block}
+.as-top small{color:#6b625a;word-break:break-all}
+.as-row .pv{aspect-ratio:16/10;max-width:360px;width:100%}
+.as-ctl{display:grid;gap:8px}
+.as-ctl[hidden]{display:none}
+.as-ctl label{display:grid;grid-template-columns:5.5em 1fr;align-items:center;gap:10px;font-size:14px}
+.as-ctl input[type=range]{width:100%;min-width:0}
+.as-acts{display:flex;flex-wrap:wrap;gap:8px}
+.as-st{color:#2f6b4f;font-size:13px;min-height:1.2em}
+.as-st.err{color:#a51c1c}
+
+#adminBar{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+#adminBar[hidden]{display:none}
+#adminBar button{border:0;border-radius:999px;padding:14px 20px;font:700 15px "Noto Sans",system-ui,sans-serif;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.35);cursor:pointer;background:#231f1c}
+#adminBar #saveBtn{background:#2f6b4f}
+#adminBar #saveBtn.dirty{background:#a51c1c}
+#adminBar button:disabled{opacity:.6}

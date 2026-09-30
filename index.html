@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PANCETTA | Samurai Bolognese – Italian Restaurant in Asakura, Fukuoka</title>
+<meta name="description" content="PANCETTA is an Italian restaurant in Asakura, Fukuoka. Try our signature Samurai Bolognese - Italian tradition, Japanese umami, perfected in Asakura.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f6f1e8; --paper:#fffdf8; --ink:#231f1c; --muted:#6b625a;
+  --red:#a51c1c; --green:#2f6b4f; --black:#141110; --gold:#c9a45c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.75;font-size:17px;-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+section{padding:64px 0}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;line-height:1.15;font-weight:700}
+h2{font-size:clamp(30px,6vw,44px);letter-spacing:.02em;margin-bottom:14px}
+h3{font-size:24px;margin-bottom:6px}
+.eyebrow{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:10px}
+.lead{color:var(--muted);max-width:640px}
+.tagline{display:block;font-family:"Cormorant Garamond",serif;font-size:clamp(20px,4vw,28px);font-weight:600;margin:22px 0}
+
+/* photo slots: real image if present, labeled placeholder otherwise */
+.photo{position:relative;background:linear-gradient(135deg,#e9dfcc,#d8cbb2);border-radius:6px;overflow:hidden;aspect-ratio:16/10}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;font-size:14px;color:#5a4d3a;font-weight:500}
+.photo.tall{aspect-ratio:4/5}
+.photo.sq{aspect-ratio:1/1}
+
+/* buttons */
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.btn{display:inline-block;padding:15px 26px;border-radius:999px;font-weight:700;font-size:15px;letter-spacing:.08em;text-decoration:none;text-align:center;border:2px solid transparent;transition:transform .15s,opacity .15s}
+.btn:active{transform:scale(.97)}
+.btn.red{background:var(--red);color:#fff}
+.btn.green{background:var(--green);color:#fff}
+.btn.line{border-color:currentColor;color:inherit;background:transparent}
+.btn.big{padding:18px 34px;font-size:17px}
+
+/* hero */
+.hero{background:var(--black);color:#fff;padding:0}
+.hero .photo{border-radius:0;aspect-ratio:16/11;max-height:70vh;width:100%}
+.hero .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,16,.85),rgba(20,17,16,0) 55%)}
+.hero-body{padding:30px 0 56px}
+.brand{font-size:14px;letter-spacing:.35em;color:var(--gold);font-weight:700}
+.hero h1{font-size:clamp(46px,11vw,92px);color:var(--gold);letter-spacing:.03em;margin:8px 0 10px}
+.hero .sub{font-family:"Cormorant Garamond",serif;font-size:clamp(20px,4.5vw,28px);font-style:italic;margin-bottom:18px}
+.hero p.desc{color:#d9d2c6;max-width:640px}
+.hero .btn.line{color:#fff}
+
+/* umami */
+.umami{background:var(--cream)}
+.trio{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:10px;margin:26px 0}
+.trio .photo{aspect-ratio:3/4}
+.trio figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+.banner{background:var(--red);color:#fff;text-align:center;padding:22px 18px;font-family:"Cormorant Garamond",serif;font-size:clamp(20px,4.5vw,28px);font-weight:700;letter-spacing:.04em;border-radius:6px;margin-top:28px}
+.banner.green{background:var(--green)}
+
+/* signatures */
+.dishes{display:grid;grid-template-columns:1fr;gap:34px;margin-top:30px}
+.dish p{color:var(--muted);margin-top:6px}
+.dish .photo{margin-bottom:14px}
+
+/* sake */
+.sake{background:var(--black);color:#f1ebe0}
+.sake .lead,.sake p{color:#d0c8ba}
+.sake .eyebrow{color:var(--gold)}
+.sake h2{color:var(--gold)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:26px 0}
+.duo .photo{aspect-ratio:4/5}
+.box{border:1px solid var(--gold);border-radius:6px;padding:18px 20px;margin-top:22px}
+.box strong{display:block;color:var(--gold);letter-spacing:.1em;font-size:14px}
+
+/* access */
+.info{display:grid;grid-template-columns:1fr;gap:12px;margin:22px 0;list-style:none}
+.info li{background:var(--cream);padding:14px 18px;border-radius:6px;font-weight:500}
+.map{border:0;width:100%;aspect-ratio:16/10;border-radius:6px;margin:8px 0 20px;background:#e9dfcc}
+
+/* visit */
+.visit{background:var(--cream)}
+.pair{display:grid;grid-template-columns:1fr;gap:14px;margin:24px 0}
+.hours{background:#fff;border-radius:6px;padding:22px;margin:24px 0;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.hours dt{font-weight:700;letter-spacing:.1em;color:var(--red);font-size:13px;margin-top:12px}
+.hours dt:first-child{margin-top:0}
+
+/* footer */
+.closing{background:var(--green);color:#fff;text-align:center}
+.closing h2{color:#fff}
+.closing .btns{justify-content:center}
+.closing .btn.line{color:#fff}
+.closing .btn.red{background:#fff;color:var(--green)}
+footer{background:var(--black);color:#9a9184;text-align:center;font-size:13px;padding:22px}
+
+@media (min-width:720px){
+  section{padding:96px 0}
+  .dishes{grid-template-columns:1fr 1fr;gap:44px 34px}
+  .pair{grid-template-columns:1fr 1fr}
+  .info{grid-template-columns:1fr 1fr}
+}
+</style>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- 1. TOP -->
+<header class="hero" id="top">
+  <div class="photo" data-slot="01-samurai-bolognese-top" data-alt="Samurai Bolognese with soft egg at PANCETTA">
+    <span class="ph">[写真] images/01-samurai-bolognese-top.jpg<br>侍ボロネーゼ 横長・寄り</span>
+  </div>
+  <div class="wrap hero-body">
+    <div class="brand">PANCETTA</div>
+    <h1>SAMURAI<br>BOLOGNESE</h1>
+    <p class="sub">Born in Italy. Layered with Japanese Umami. Perfected in Asakura.</p>
+    <p class="desc"><strong>Italian Restaurant in Asakura, Fukuoka.</strong> PANCETTA serves pasta, Roman-style pizza, antipasti, and wine. Our signature dish is Samurai Bolognese – a rich, slow-cooked meat sauce layered with Japanese umami from shiitake mushrooms and kombu kelp.</p>
+    <div class="btns">
+      <a class="btn red" href="menu.pdf">VIEW MENU</a>
+      <a class="btn line" href="https://www.google.com/maps/search/?api=1&query=PANCETTA+Asakura+Fukuoka" target="_blank" rel="noopener">OPEN IN GOOGLE MAPS</a>
+      <a class="btn line" href="https://www.instagram.com/" target="_blank" rel="noopener" id="ig1">INSTAGRAM</a>
+    </div>
+  </div>
+</header>
+
+<!-- 2. JAPANESE UMAMI -->
+<section class="umami" id="umami">
+  <div class="wrap">
+    <div class="eyebrow">The Story</div>
+    <h2>WHAT MAKES SAMURAI BOLOGNESE SPECIAL?</h2>
+    <div class="trio">
+      <figure>
+        <div class="photo" data-slot="03-kombu" data-alt="Kombu kelp"><span class="ph">[写真] 昆布</span></div>
+        <figcaption>Kombu</figcaption>
+      </figure>
+      <figure>
+        <div class="photo" data-slot="02-samurai-bolognese-angle" data-alt="Samurai Bolognese close-up"><span class="ph">[写真] ボロネーゼ 別角度</span></div>
+        <figcaption>Samurai Bolognese</figcaption>
+      </figure>
+      <figure>
+        <div class="photo" data-slot="04-dried-shiitake" data-alt="Dried shiitake mushrooms"><span class="ph">[写真] 干し椎茸</span></div>
+        <figcaption>Dried Shiitake</figcaption>
+      </figure>
+    </div>
+    <p class="lead" style="max-width:none">In Japanese cuisine, flavor is often built not only with salt or fat, but with umami. Kombu is naturally rich in glutamate, while dried shiitake mushrooms are rich in guanylate. When these are layered with the savory richness of beef and pork, the result is deeper, rounder and more satisfying.</p>
+    <p style="margin-top:14px">This is the heart of our Samurai Bolognese – Italian tradition, Japanese umami, perfected in Asakura.</p>
+    <div class="banner">ITALIAN TRADITION. JAPANESE UMAMI. ONE UNFORGETTABLE BOLOGNESE.</div>
+  </div>
+</section>
+
+<!-- 3. SIGNATURES -->
+<section id="signatures">
+  <div class="wrap">
+    <div class="eyebrow">Our Favorites</div>
+    <h2>PANCETTA SIGNATURES</h2>
+    <div class="dishes">
+      <article class="dish">
+        <div class="photo" data-slot="02-samurai-bolognese-angle" data-alt="Samurai Bolognese"><span class="ph">[写真] ① Samurai Bolognese</span></div>
+        <h3>SAMURAI BOLOGNESE</h3>
+        <p>Our signature pasta. Slow-cooked beef and pork layered with shiitake mushrooms, kombu kelp and Japanese umami. Rich, aromatic and deeply savory.</p>
+      </article>
+      <article class="dish">
+        <div class="photo" data-slot="05-kosho-chicken-pasta" data-alt="Kosho chicken and Asakura green onion pasta"><span class="ph">[写真] ② 古処鶏と朝倉ねぎのパスタ</span></div>
+        <h3>KOSHO CHICKEN &amp; ASAKURA GREEN ONION PASTA</h3>
+        <p>Savory Kosho Chicken paired with locally grown Asakura green onions. The gentle bite of the green onions complements the chicken, finished with the fresh citrus aroma and subtle heat of yuzu kosho.</p>
+      </article>
+      <article class="dish">
+        <div class="photo" data-slot="06-roman-pizza" data-alt="Roman-style pizza"><span class="ph">[写真] ③ ローマ風ピッツァ</span></div>
+        <h3>ROMAN-STYLE PIZZA</h3>
+        <p>Thin, crisp and perfect with wine. Our pizzas are baked with carefully selected toppings, including local ingredients from Asakura.</p>
+      </article>
+      <article class="dish">
+        <div class="photo" data-slot="07-antipasti" data-alt="Antipasti and wine"><span class="ph">[写真] ④ 前菜盛り＋ワイン</span></div>
+        <h3>ANTIPASTI &amp; WINE</h3>
+        <p>Enjoy a selection of Italian appetizers, prosciutto, seasonal dishes and wines chosen to pair with our food.</p>
+      </article>
+    </div>
+    <div class="btns"><a class="btn green" href="menu.pdf">VIEW FULL MENU</a></div>
+  </div>
+</section>
+
+<!-- 4. LOCAL SAKE -->
+<section class="sake" id="sake">
+  <div class="wrap">
+    <div class="eyebrow">Local Sake</div>
+    <h2>LOCAL SAKE IN A WINE GLASS</h2>
+    <span class="tagline" style="color:#fff">DISCOVER LOCAL SAKE, PANCETTA STYLE.</span>
+    <div class="duo">
+      <div class="photo" data-slot="09-sake-wineglass" data-alt="Local sake in a wine glass"><span class="ph">[写真] ① ワイングラスの日本酒＋ボトル</span></div>
+      <div class="photo" data-slot="08-antipasti-sake" data-alt="Antipasti with sake"><span class="ph">[写真] ② 前菜盛り＋日本酒</span></div>
+    </div>
+    <p>Discover selected local sake from the region, served in a wine glass to highlight its aroma and delicate character. Just like wine, sake can reveal different expressions when paired with food.</p>
+    <p style="margin-top:14px">At PANCETTA, we invite you to enjoy Japanese sake alongside Italian dishes – from antipasti and seafood to mushroom dishes and our umami-rich Samurai Bolognese.</p>
+    <div class="banner green" style="margin-top:26px">ITALIAN FOOD. LOCAL SAKE. A NEW TASTE OF ASAKURA.</div>
+    <div class="box"><strong>LOCAL SAKE SELECTION</strong>Ask our staff about today's local sake selection.</div>
+    <!-- 飲み比べを始める時はここのコメントを外す
+    <div class="box"><strong>LOCAL SAKE FLIGHT</strong>Taste three selected local sakes and discover different aromas and flavors.</div>
+    -->
+  </div>
+</section>
+
+<!-- 5. TASTE OF ASAKURA -->
+<section id="asakura">
+  <div class="wrap">
+    <div class="eyebrow">The Land</div>
+    <h2>TASTE OF ASAKURA</h2>
+    <div class="photo" data-slot="asakura-landscape" data-alt="Asakura landscape and local produce" style="margin:22px 0"><span class="ph">[写真] 朝倉の風景＋地元食材<br>（青ねぎ畑・山並み・古処鶏・季節の野菜）</span></div>
+    <p>Asakura is surrounded by mountains, farmland and rich local food traditions. At PANCETTA, we use local ingredients whenever possible, including Asakura green onions and regional produce, combining them with Italian cooking techniques.</p>
+    <p style="margin-top:14px"><strong>Our goal is simple: to create Italian food that could only be made here in Asakura.</strong></p>
+  </div>
+</section>
+
+<!-- 6. ACCESS FROM AKIZUKI / DAZAIFU -->
+<section class="visit" id="access">
+  <div class="wrap">
+    <div class="eyebrow">Getting Here</div>
+    <h2>A GREAT FOOD STOP FROM AKIZUKI OR DAZAIFU</h2>
+    <p class="lead">PANCETTA is a great stop for lunch or dinner while exploring Fukuoka by car. If you are visiting Akizuki, Dazaifu, Asakura or the Fukuoka countryside, make PANCETTA part of your journey.</p>
+    <p style="margin-top:12px">Enjoy local ingredients, Roman-style pizza, wine and our signature Samurai Bolognese.</p>
+    <ul class="info" style="margin-top:22px">
+      <li>🅿️ Parking Available</li>
+      <li>🍽️ Lunch &amp; Dinner</li>
+    </ul>
+    <!-- 店舗が確定したら、Google Mapsの「共有 → 地図を埋め込む」のiframeに差し替える -->
+    <iframe class="map" title="PANCETTA on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=PANCETTA+Asakura+Fukuoka&output=embed"></iframe>
+    <div class="btns"><a class="btn red big" href="https://www.google.com/maps/dir/?api=1&destination=PANCETTA+Asakura+Fukuoka" target="_blank" rel="noopener">OPEN IN GOOGLE MAPS</a></div>
+    <div class="photo" data-slot="12-exterior-day" data-alt="PANCETTA exterior in daytime" style="margin-top:28px"><span class="ph">[写真] 外観・昼（看板と入口が見えるもの）</span></div>
+  </div>
+</section>
+
+<!-- 7. INSIDE / TERRACE -->
+<section id="inside">
+  <div class="wrap">
+    <div class="eyebrow">Welcome</div>
+    <h2>RELAX AND ENJOY PANCETTA</h2>
+    <p class="lead">Enjoy lunch or dinner in our relaxed Italian restaurant in Asakura. Outdoor terrace seating is also available.</p>
+    <div class="pair">
+      <div class="photo" data-slot="10-interior" data-alt="PANCETTA interior"><span class="ph">[写真] 店内全景</span></div>
+      <div class="photo" data-slot="11-terrace" data-alt="Pet-friendly outdoor terrace"><span class="ph">[写真] テラス（ペット同伴OK）</span></div>
+    </div>
+    <h3>PET-FRIENDLY OUTDOOR TERRACE</h3>
+    <p>Guests traveling with pets can enjoy our outdoor terrace seating.</p>
+    <h3 style="margin-top:28px">For International Guests</h3>
+    <p>English menu available. Our staff will be happy to help you choose from our pasta, pizza, appetizers, wine and non-alcoholic drinks.</p>
+    <div class="banner">Recommended First Dish: SAMURAI BOLOGNESE</div>
+  </div>
+</section>
+
+<!-- 8. HOURS / PARKING / CTA -->
+<section class="visit" id="visit">
+  <div class="wrap">
+    <div class="eyebrow">Visit Us</div>
+    <h2>HOURS &amp; LOCATION</h2>
+    <!-- ※営業時間はGoogleの表示と必ず同じにする（下は手順書の例） -->
+    <dl class="hours">
+      <dt>OPENING HOURS</dt>
+      <dd>Lunch: 11:30 AM – 3:00 PM<br>Dinner: 6:00 PM – 10:00 PM</dd>
+      <dt>PARKING</dt>
+      <dd>Parking is available for guests arriving by car.</dd>
+      <dt>LOCATION</dt>
+      <dd>PANCETTA, Asakura, Fukuoka, Japan</dd>
+    </dl>
+    <div class="photo" data-slot="13-exterior-night" data-alt="PANCETTA at night"><span class="ph">[写真] 外観・夜</span></div>
+  </div>
+</section>
+
+<section class="closing" id="reserve">
+  <div class="wrap">
+    <h2>COME TASTE ASAKURA THROUGH ITALIAN EYES.</h2>
+    <p>Samurai Bolognese – Italian tradition, Japanese umami, perfected in Asakura.</p>
+    <div class="btns">
+      <a class="btn red big" href="https://www.google.com/maps/dir/?api=1&destination=PANCETTA+Asakura+Fukuoka" target="_blank" rel="noopener">GOOGLE MAPS</a>
+      <a class="btn line big" href="https://www.instagram.com/" target="_blank" rel="noopener" id="ig2">INSTAGRAM</a>
+      <a class="btn line big" href="tel:+81000000000" id="tel">RESERVATION / CALL</a>
+    </div>
+  </div>
+</section>
+
+<footer>© PANCETTA, Asakura, Fukuoka</footer>
+<script>
+  (function () {
+    var v = Date.now();
+    document.write('<script src="content.js?v=' + v + '"><\/script>');
+    document.write('<script src="site.js?v=' + v + '"><\/script>');
+    document.write('<script src="admin.js?v=' + v + '"><\/script>');
+  })();
+</script>
+</body>
+</html>
