@@ -53,6 +53,12 @@ window.SITE_CONTENT = {
       "x": 50,
       "y": 50,
       "z": 100
+    },
+    "09-sake-wineglass": {
+      "v": 1790787898554,
+      "x": 50,
+      "y": 50,
+      "z": 100
     }
   },
   "music": {
