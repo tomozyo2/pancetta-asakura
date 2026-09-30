@@ -38,6 +38,15 @@
   var newB64 = {};    // 新しく選んだ写真 key -> base64（JPEG）
   var pass = "";
   var rows = {};
+  var MKEY = "__music";                 // 音楽の変更を、写真と同じ「未保存」の数に入れるための名前
+  var music = { b64: null, removed: false };
+  var musicSt = null;
+  var MUSIC_MAX = 12 * 1024 * 1024;     // 12MBまで
+
+  function musicStatus(text, err) {
+    if (!musicSt) return;
+    musicSt.textContent = text || ""; musicSt.className = "as-st" + (err ? " err" : "");
+  }
 
   function $(id) { return document.getElementById(id); }
   function apply(key) { if (window.applyPhotos) window.applyPhotos(key); }
@@ -54,12 +63,12 @@
       '<div class="as-acts"><button type="button" class="as-btn" id="pwOk">入る</button>' +
       '<button type="button" class="as-btn ghost" id="pwCancel">やめる</button></div></div></div>' +
     '<div id="adminBar" hidden>' +
-      '<button id="adminFab" type="button">📷 写真の一覧</button>' +
+      '<button id="adminFab" type="button">📷 写真・音楽</button>' +
       '<button id="saveBtn" type="button">💾 保存して公開</button>' +
     '</div>' +
     '<div id="adminSheet" hidden>' +
-      '<div class="as-head"><strong>写真の入れ替え</strong><button class="as-btn" id="asClose" type="button">閉じる</button></div>' +
-      '<p class="as-note">「写真を選ぶ」で写真を選び、バーで位置と大きさを合わせます。最後に「保存して公開」を押すと、ホームページに反映されます（1〜2分かかります）。</p>' +
+      '<div class="as-head"><strong>写真・音楽の入れ替え</strong><button class="as-btn" id="asClose" type="button">閉じる</button></div>' +
+      '<p class="as-note">一番上の「音楽を選ぶ」でBGMを入れ替えると、その場で音楽が流れます。写真は「写真を選ぶ」で選び、バーで位置と大きさを合わせます。最後に「保存して公開」を押すと、ホームページに反映されます（1〜2分かかります）。</p>' +
       '<div id="asList"></div>' +
     '</div>';
   document.body.appendChild(root);
@@ -125,6 +134,49 @@
   /* ---------- 一覧パネル ---------- */
   function buildPanel() {
     var list = $("asList");
+
+    // 音楽（BGM）の入れ替え
+    var mrow = document.createElement("div");
+    mrow.className = "as-row";
+    mrow.innerHTML =
+      '<div class="as-top"><div><b>BGM（音楽）</b><small>MP3ファイル・12MBまで（3〜5MBがおすすめ）</small></div>' +
+      '<label class="as-btn pick">音楽を選ぶ<input type="file" accept="audio/mpeg,.mp3" hidden></label></div>' +
+      '<div class="as-acts"><button type="button" class="as-btn ghost">音楽を外す</button></div>' +
+      '<div class="as-st"></div>';
+    list.appendChild(mrow);
+    musicSt = mrow.querySelector(".as-st");
+    mrow.querySelector('input[type="file"]').addEventListener("change", function (ev) {
+      var f = ev.target.files && ev.target.files[0]; ev.target.value = "";
+      if (!f) return;
+      if (!(/\.mp3$/i.test(f.name) || f.type === "audio/mpeg")) { musicStatus("MP3ファイルを選んでください。", true); return; }
+      if (f.size > MUSIC_MAX) { musicStatus("ファイルが大きすぎます（12MBまで）。", true); return; }
+      musicStatus("読み込み中…");
+      var rd = new FileReader();
+      rd.onload = function () {
+        music.b64 = String(rd.result).split(",")[1];
+        music.removed = false;
+        touched[MKEY] = true; markDirty();
+        if (window.PancettaMusic) window.PancettaMusic.play(URL.createObjectURL(f));
+        musicStatus("選びました。音楽が流れます。「保存して公開」でホームページに反映されます。");
+      };
+      rd.onerror = function () { musicStatus("読み込めませんでした。別のファイルで試してください。", true); };
+      rd.readAsDataURL(f);
+    });
+    var mrmTimer = null;
+    mrow.querySelector(".as-acts button").addEventListener("click", function (ev) {
+      var b = ev.currentTarget;
+      if (b.dataset.armed) {
+        b.dataset.armed = ""; b.textContent = "音楽を外す"; clearTimeout(mrmTimer);
+        music.b64 = null; music.removed = true;
+        touched[MKEY] = true; markDirty();
+        if (window.PancettaMusic) window.PancettaMusic.clear();
+        musicStatus("音楽を外しました。「保存して公開」で反映されます。");
+        return;
+      }
+      b.dataset.armed = "1"; b.textContent = "もう一度押すと外します";
+      mrmTimer = setTimeout(function () { b.dataset.armed = ""; b.textContent = "音楽を外す"; }, 3000);
+    });
+
     SLOTS.forEach(function (s) {
       var key = s[0], row = document.createElement("div");
       row.className = "as-row";
@@ -228,13 +280,23 @@
 
   var saving = false;
   function save() {
-    var keys = Object.keys(touched);
-    if (!keys.length) { toast("変更はありません。"); return; }
+    var allKeys = Object.keys(touched);
+    if (!allKeys.length) { toast("変更はありません。"); return; }
     if (saving) return;
     saving = true;
+    var keys = allKeys.filter(function (k) { return k !== MKEY; });
+    var musicTouched = !!touched[MKEY];
     var btn = $("saveBtn"); btn.disabled = true; btn.textContent = "保存しています…";
     var now = Date.now();
     var chainP = Promise.resolve();
+
+    if (musicTouched && music.b64) {
+      chainP = chainP.then(function () {
+        return getFile("music.mp3").then(function (f) {
+          return putFile("music.mp3", music.b64, f && f.sha, "音楽を更新");
+        });
+      });
+    }
 
     keys.forEach(function (key) {
       if (!newB64[key]) return;
@@ -249,15 +311,17 @@
     chainP = chainP.then(function () {
       return getFile(CONTENT_PATH);
     }).then(function (f) {
-      var photos = {};
+      var photos = {}, musicInfo;
       if (f) {
         try {
           var txt = b64ToUtf8(f.content);
           var m = txt.match(/=\s*([\s\S]*?);?\s*$/);
           var cur = JSON.parse(m[1]);
           photos = cur.photos || {};
+          musicInfo = cur.music;
         } catch (e) { photos = {}; }
       }
+      if (musicTouched) musicInfo = music.removed ? null : { v: now };
       keys.forEach(function (key) {
         var p = P[key];
         if (!p) { delete photos[key]; return; }
@@ -265,10 +329,13 @@
         photos[key] = { v: v, x: p.x == null ? 50 : p.x, y: p.y == null ? 50 : p.y, z: p.z || 100 };
         p.v = v;
       });
-      var out = "window.SITE_CONTENT = " + JSON.stringify({ photos: photos }, null, 2) + ";\n";
-      return putFile(CONTENT_PATH, utf8ToB64(out), f && f.sha, "写真の位置を更新");
+      var data = { photos: photos };
+      if (musicInfo !== undefined) data.music = musicInfo;
+      var out = "window.SITE_CONTENT = " + JSON.stringify(data, null, 2) + ";\n";
+      return putFile(CONTENT_PATH, utf8ToB64(out), f && f.sha, "写真・音楽を更新");
     }).then(function () {
       keys.forEach(function (k) { delete touched[k]; delete newB64[k]; status(k, "保存しました。"); });
+      if (musicTouched) { delete touched[MKEY]; music.b64 = null; musicStatus("保存しました。"); }
       toast("保存しました。ホームページへの反映まで1〜2分かかります。");
     }).catch(function (e) {
       var m = String(e && e.message || "");
